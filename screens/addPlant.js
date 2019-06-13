@@ -9,8 +9,7 @@ import {
   View,
   Button
 } from 'react-native';
-import PlantList from '../components/plant-list';
-
+const PlantLibrary = require('../assets/plant-library/plants');
 
 export default function Dashboard() {
 
@@ -25,8 +24,7 @@ export default function Dashboard() {
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
-          <View style={styles.plantsContainer}>
-            <AddPlantButton />
+          <View style={styles.plantSelectContainer}>            
             <PlantList />            
           </View>
 
@@ -34,4 +32,20 @@ export default function Dashboard() {
       </View>
   );
 
+}
+function PlantList() {
+
+  const plantList = 
+  return (
+    <Text style={styles.developmentModeText}>
+      Development mode is enabled: your app will be slower but you can use
+      useful development tools. {learnMoreButton}
+    </Text>
+  );
+}
+
+function handleAddPlantPress() {
+  WebBrowser.openBrowserAsync(
+    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
+  );
 }

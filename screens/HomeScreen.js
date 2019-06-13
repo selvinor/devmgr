@@ -35,14 +35,7 @@ export default function HomeScreen() {
         </View>
       </ScrollView>
 
-      <View style={styles.tabBarInfoContainer}>
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            Choose from the following options:
-          </MonoText>
-        </View>
-      </View>
+
     </View>
   );
 }
