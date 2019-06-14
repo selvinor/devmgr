@@ -1,30 +1,30 @@
 import {REACT_APP_BASE_URL} from '../config';
 
-// export const ORDERS_HAS_ERRORED = 'ORDERS_HAS_ERRORED';
-// export const ordersHasErrored = (hasErrored) => ({
-//     type: ORDERS_HAS_ERRORED,
+// export const PLANTS_HAS_ERRORED = 'PLANTS_HAS_ERRORED';
+// export const plantsHasErrored = (hasErrored) => ({
+//     type: PLANTS_HAS_ERRORED,
 //     hasErrored
 // });
-// export const ORDERS_IS_LOADING = 'ORDERS_IS_LOADING'; 
-// export const ordersIsLoading = (isLoading) => ({
-//     type: ORDERS_IS_LOADING,
+// export const PLANTS_IS_LOADING = 'PLANTS_IS_LOADING'; 
+// export const plantsIsLoading = (isLoading) => ({
+//     type: PLANTS_IS_LOADING,
 //     isLoading
 // });
-export const ADD_ORDER_SUCCESS = 'ADD_ORDER_SUCCESS'; 
-export const addOrderSuccess = (newOrder) => ({
-    type: ADD_ORDER_SUCCESS,
-    newOrder
+export const ADD_PLANT_SUCCESS = 'ADD_PLANT_SUCCESS'; 
+export const addPlantSuccess = (newPlant) => ({
+    type: ADD_PLANT_SUCCESS,
+    newPlant
 });
-export const FETCH_ORDER_SUCCESS = 'FETCH_ORDER_SUCCESS';
-export const fetchOrderSuccess = (orders) => ({
-    type: FETCH_ORDER_SUCCESS,
-    orders
+export const FETCH_PLANT_SUCCESS = 'FETCH_PLANT_SUCCESS';
+export const fetchPlantSuccess = (plants) => ({
+    type: FETCH_PLANT_SUCCESS,
+    plants
 });
-export const fetchOrders = () => (dispatch, getState)  => {
-  console.log('fetch orders fired!');
+export const fetchPlants = () => (dispatch, getState)  => {
+  console.log('fetch plants fired!');
   //const authToken = getState().auth.authToken;
-  //fetch(`${REACT_APP_BASE_URL}/`, {
-    fetch('http://192.168.1.5:8080/api/orders', {
+  fetch(`${REACT_APP_BASE_URL}/`, {
+    //fetch('http://192.168.1.5:8080/api/plants', {
     method: 'GET'
     // headers: {
     //     // Provide our auth token as credentials
@@ -38,10 +38,10 @@ export const fetchOrders = () => (dispatch, getState)  => {
       }      
       return res.json();
   }).then(data => {
-    let  order_data = data;
-    console.log('***** order: ', order_data);
+    let  plant_data = data;
+    console.log('***** plant: ', plant_data);
     //subscription_data = Object.keys(data);   
-    dispatch(fetchOrderSuccess(data));
+    dispatch(fetchPlantSuccess(data));
   })
   .catch(error=> {
     console.log('There has been a problem with your fetch operation: ' + error.message);
@@ -55,14 +55,14 @@ export const fetchOrders = () => (dispatch, getState)  => {
 // Async actions
 
 
-export const addOrder = () => dispatch => {
-  fetch('http://192.168.1.5:8080/api/orders')
+export const addPlant = () => dispatch => {
+  fetch(`${REACT_APP_BASE_URL}/api/plants`)
   .then(res => {
       if (!res.ok) {
           return Promise.reject(res.statusText);
       }
       return res.json();
-  }).then(newOrder => {
-      dispatch(addOrderSuccess(newOrder));
+  }).then(newPlant => {
+      dispatch(addPlantSuccess(newPlant));
   });
 };

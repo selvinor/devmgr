@@ -12,7 +12,6 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "braces": ">=2.3.1",
     "@expo/samples": "~3.0.0",
     "@expo/vector-icons": "^10.0.1",
     "expo": "^33.0.0",
@@ -23,11 +22,13 @@
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native-elements": "^1.1.0",
+    "react-native-vector-icons": "^6.5.0",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",
-    "ws": ">=3.3.1"
+    "watchman": "^1.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.0",

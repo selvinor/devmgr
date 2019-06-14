@@ -1,41 +1,41 @@
 const initialState = {
-  orders: [], 
+  plants: [], 
   hasErrored: false,
   isLoading: false
 
 }
-export const orderReducer = (state=initialState, action) => {
+export const plantReducer = (state=initialState, action) => {
   switch (action.type) {
-  //   case 'FETCH_ORDER_REQUEST':
+  //   case 'FETCH_PLANT_REQUEST':
   //   return Object.assign({}, state, {        
   //     isLoading: true,
   //     hasErrored: null
   //   }); 
 
-    case 'FETCH_ORDER_SUCCESS':
-    console.log('fetch order success action.orders: ', action.orders);
+    case 'FETCH_PLANT_SUCCESS':
+    console.log('fetch plant success action.plants: ', action.plants);
       return Object.assign({}, state, {        
-        orders: action.orders
+        plants: action.plants
     });
 
-  //   case 'ORDERS_HAS_ERRORED':
+  //   case 'PLANTS_HAS_ERRORED':
   //     return Object.assign({}, state, {
   //       hasErrored: action.hasErrored
   //   });  
 
-  //   case 'ORDERS_IS_LOADING':
+  //   case 'PLANTS_IS_LOADING':
   //     return Object.assign({}, state, {
   //       isLoading: action.isLoading
   //   }); 
   //   case  'LOAD_TEST_DATA':
   //   return Object.assign({}, state, {
-  //     orders: action.testData
+  //     plants: action.testData
   // }); 
 
-    case 'ADD_ORDER_SUCCESS':
-    console.log('************ order reducer. action.newOrder: ', action.newOrder);
+    case 'ADD_PLANT_SUCCESS':
+    console.log('************ plant reducer. action.newPlant: ', action.newPlant);
     return Object.assign({}, state, {
-      orders: [...state.orders, action.newOrder]
+      plants: [...state.plants, action.newPlant]
     });
           
     default:
