@@ -9,38 +9,38 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
-import TodoList from './TodoList';
+import PlantList from './AddAPlant';
 
 export default function App() {
     const  [value, setValue] = useState('');
-    const [todos, setTodos] = useState([]);
-    handleAddTodo = () => {
+    const [plants, setPlants] = useState([]);
+    addPlant = () => {
       if (value.length > 0) {
-        setTodos([...todos, { text: value, key: Date.now(), checked: false }]);
+        setPlants([...plants, { text: value, key: Date.now(), checked: false }]);
         setValue('');
       }
     };
     
-  checkTodo = id => {
-    setTodos(
-      todos.map(todo => {
-        console.log('Todo key: ', todo.key, ' | Todo checked: ', todo.checked);
-        if (todo.key === id) todo.checked = !todo.checked;
-        return todo;
+  checkPlant = id => {
+    setPlants(
+      plants.map(plant => {
+        console.log('Plant key: ', plant.key, ' | Plant checked: ', plant.checked);
+        if (plant.key === id) plant.checked = !plant.checked;
+        return plant;
       })
     );
   };
 
-  deleteTodo = id => {
-    setTodos(
-      todos.filter(todo => {
-        if (todo.key !== id) return true;
+  deletePlant = id => {
+    setPlants(
+      plants.filter(plant => {
+        if (plant.key !== id) return true;
       })
     );
   };
 	return (
 		<View style={styles.container}>
-			<Text style={styles.header}>Todo List</Text>
+			<Text style={styles.header}>Plant List</Text>
 			<View style={styles.textInputContainer}>
 				<TextInput
 					style={styles.textInput}
@@ -50,18 +50,18 @@ export default function App() {
           value={value}
 					onChangeText={value => {setValue(value);console.log('set value: ', value)}}
 				/>
-        <TouchableOpacity onPress={() => handleAddTodo()}>
+        <TouchableOpacity onPress={() => addPlant()}>
             <Icon name="plus" size={30} color="blue" style={{ marginLeft:15 }} />
         </TouchableOpacity>
 			</View>
       <ScrollView style={{ width: '100%' }}>
-        {todos.map(item => (
-          <TodoList
+        {plants.map(item => (
+          <PlantList
             text={item.text}
             key={item.key}
             checked={item.checked}
-            setChecked={() => checkTodo(item.key)}
-            deleteTodo={() => deleteTodo(item.key)}
+            setChecked={() => checkPlant(item.key)}
+            deletePlant={() => deletePlant(item.key)}
           />
           ))}
       </ScrollView>
