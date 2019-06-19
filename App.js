@@ -9,61 +9,55 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
-import PlantList from './AddAPlant';
-
+//import PlantList from './AddAPlant';
+// import PlantList from './AddAPlant';
+const myPlants = require('./assets/plant-library/plants');
+  // console.log('myPlants[0]: ', myPlants[0]);
 export default function App() {
-    const  [value, setValue] = useState('');
-    const [plants, setPlants] = useState([]);
-    addPlant = () => {
-      if (value.length > 0) {
-        setPlants([...plants, { text: value, key: Date.now(), checked: false }]);
-        setValue('');
-      }
-    };
-    
-  checkPlant = id => {
-    setPlants(
-      plants.map(plant => {
-        console.log('Plant key: ', plant.key, ' | Plant checked: ', plant.checked);
-        if (plant.key === id) plant.checked = !plant.checked;
-        return plant;
-      })
-    );
+  const  [value, setValue] = useState('');
+  const [seedPlants, setSeedPlants] = useState(myPlants);
+
+  addPlant = () => {
+    if (value.length > 0) {
+      setSeedPlants([...seedPlants, { text: value, key: Date.now(), checked: false }]);
+      setValue('');
+    }
   };
+  
+  addPlantToCollection = id => {
+  setSeedPlants(
+    seedPlants.map(plant => {
+      //console.log('Plant key: ', plant.key);
+      if (plant.key === id) plant.checked = !plant.checked; 
+      return plant;
+    })
+  );
+};
 
   deletePlant = id => {
-    setPlants(
-      plants.filter(plant => {
+    setSeedPlants(
+      seedPlants.filter(plant => {
         if (plant.key !== id) return true;
       })
     );
   };
+  
+  function ListPlants() {
+    // const reptiles = ['alligator', 'snake', 'lizard'];
+  
+    return (
+      <View>
+        {seedPlants.map(plant => (
+          <View key={plant.plant_name}><Text>{plant.plant_name}</Text></View>
+        ))}
+      </View>
+    );
+  }
 	return (
 		<View style={styles.container}>
 			<Text style={styles.header}>Plant List</Text>
-			<View style={styles.textInputContainer}>
-				<TextInput
-					style={styles.textInput}
-					multiline={true}
-					placeholder="What do you want to do today?"
-          placeholderTextColor="#abbabb"
-          value={value}
-					onChangeText={value => {setValue(value);console.log('set value: ', value)}}
-				/>
-        <TouchableOpacity onPress={() => addPlant()}>
-            <Icon name="plus" size={30} color="blue" style={{ marginLeft:15 }} />
-        </TouchableOpacity>
-			</View>
       <ScrollView style={{ width: '100%' }}>
-        {plants.map(item => (
-          <PlantList
-            text={item.text}
-            key={item.key}
-            checked={item.checked}
-            setChecked={() => checkPlant(item.key)}
-            deletePlant={() => deletePlant(item.key)}
-          />
-          ))}
+          <ListPlants />
       </ScrollView>
 
 		</View>
