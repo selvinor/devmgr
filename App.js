@@ -8,16 +8,18 @@ import {
 	ScrollView
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon2 from 'react-native-vector-icons/Feather';
 //import PlantList from './AddAPlant';
 // import PlantList from './AddAPlant';
-const myPlants = require('./assets/plant-library/plants');
-  // console.log('myPlants[0]: ', myPlants[0]);
+const plantLibrary = require('./assets/plant-library/plants');
+  // console.log('plantLibrary[0]: ', plantLibrary[0]);
 export default function App() {
   const  [value, setValue] = useState('');
-  const [seedPlants, setSeedPlants] = useState(myPlants);
+  const [seedPlants, setSeedPlants] = useState(plantLibrary);
 
   addPlant = () => {
+    console.log('add pressed');
     if (value.length > 0) {
       setSeedPlants([...seedPlants, { text: value, key: Date.now(), checked: false }]);
       setValue('');
@@ -35,6 +37,7 @@ export default function App() {
 };
 
   deletePlant = id => {
+    console.log('delete pressed');
     setSeedPlants(
       seedPlants.filter(plant => {
         if (plant.key !== id) return true;
@@ -48,7 +51,24 @@ export default function App() {
     return (
       <View>
         {seedPlants.map(plant => (
-          <View key={plant.plant_name}><Text>{plant.plant_name}</Text></View>
+          <View key={plant.plant_name}>
+            <Text>{plant.plant_name}</Text>
+            <Icon
+              name="plus-circle"
+              size={30}
+              color="blue"
+              style={{ marginLeft: 'auto' }}
+              onPress={addPlant}
+            />
+            <Icon2
+              name="trash-2"
+              size={30}
+              color="red"
+              style={{ marginLeft: 'auto' }}
+              onPress={deletePlant}
+            />
+
+          </View>
         ))}
       </View>
     );
