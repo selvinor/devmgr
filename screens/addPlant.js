@@ -25,7 +25,7 @@ export default function Dashboard() {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
           <View style={styles.plantSelectContainer}>            
-            <PlantList />            
+            <plantLib />            
           </View>
 
         </ScrollView>
@@ -33,9 +33,9 @@ export default function Dashboard() {
   );
 
 }
-function PlantList() {
+function plantLib() {
 
-  const plantList = 
+  const plantLib = 
   return (
     <Text style={styles.developmentModeText}>
       Development mode is enabled: your app will be slower but you can use

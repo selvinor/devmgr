@@ -9,7 +9,7 @@ import {
   View,
   Button
 } from 'react-native';
-import PlantList from '../components/plant-list';
+import plantLib from '../components/plant-list';
 
 
 export default function Dashboard() {
@@ -27,7 +27,7 @@ export default function Dashboard() {
           contentContainerStyle={styles.contentContainer}>
           <View style={styles.plantsContainer}>
             <AddPlantButton />
-            <PlantList />            
+            <plantLib />            
           </View>
 
         </ScrollView>

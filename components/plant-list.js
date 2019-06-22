@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, Button, Text, View, StyleSheet } from 'react-native';
 import {  List, ListItem } from "react-native-elements";
 
-export default function PlantList () {
+export default function plantLib () {
 
   return (
     <View>

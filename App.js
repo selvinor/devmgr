@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -10,56 +10,66 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/Feather';
-//import PlantList from './AddAPlant';
-// import PlantList from './AddAPlant';
+//import plantLib from './AddPlantToLib';
+// import plantLib from './AddPlantToLib';
 const plantLibrary = require('./assets/plant-library/plants');
   // console.log('plantLibrary[0]: ', plantLibrary[0]);
 export default function App() {
   const  [value, setValue] = useState('');
-  const [seedPlants, setSeedPlants] = useState(plantLibrary);
+  const  [currentKey, setCurrentKey] = useState(0);
+  const [plantLib, setplantLib] = useState(plantLibrary);
+  const [activePlants, setPlantsActive] = useState([]);
 
-  addPlant = () => {
+  addPlantToPlantLib = () => {
     console.log('add pressed');
     if (value.length > 0) {
-      setSeedPlants([...seedPlants, { text: value, key: Date.now(), checked: false }]);
+      setplantLib([...plantLib, { text: value, key: Date.now(), checked: false }]);
       setValue('');
     }
   };
-  
-  addPlantToCollection = id => {
-  setSeedPlants(
-    seedPlants.map(plant => {
-      //console.log('Plant key: ', plant.key);
-      if (plant.key === id) plant.checked = !plant.checked; 
-      return plant;
-    })
-  );
-};
+    useEffect(() => {
+      addPlantToCollection = id => {
+        //add plant to state
+
+        console.log('addPlantToCollection pressed');
+        console.log('id: ', id);
+        console.log('activePlants before: ', activePlants);
+        const plantToAdd = plantLib.filter(plant => plant._id == id)[0]; //plant.checked = !plant.checked; 
+        if (activePlants.length > 0 ) {
+          console.log('number of plants in collection: ', activePlants.length);
+          const lastKey = activePlants[activePlants.length-1].key;
+          console.log('last key: ', lastKey);
+          plantToAdd.key = lastKey + 1;
+          console.log('new key: ', plantToAdd.key);
+        } else {
+          plantToAdd.key = currentKey +1;
+        }
+        //console.log('plantToAdd: ', plantToAdd);  
+        if (activePlants.length > 0) {
+          setPlantsActive([...activePlants, plantToAdd]);    
+        } else {
+          setPlantsActive([plantToAdd]);
+        } 
+        setCurrentKey(plantToAdd.key);    
+      };
+    });
 
   deletePlant = id => {
-    console.log('delete pressed');
-    setSeedPlants(
-      seedPlants.filter(plant => {
-        if (plant.key !== id) return true;
-      })
-    );
+    console.log('delete pressed for item: ', id);
+    // setPlantsActive(
+    //   activePlants.filter(plant => {
+    //     if (plant.key !== id) return true;
+    //   })
+    // );
   };
   
   function ListPlants() {
-    // const reptiles = ['alligator', 'snake', 'lizard'];
   
     return (
       <View>
-        {seedPlants.map(plant => (
-          <View key={plant.plant_name}>
+        {/* {activePlants.map(plant => (
+          <View key={Date.now()}>
             <Text>{plant.plant_name}</Text>
-            <Icon
-              name="plus-circle"
-              size={30}
-              color="blue"
-              style={{ marginLeft: 'auto' }}
-              onPress={addPlant}
-            />
             <Icon2
               name="trash-2"
               size={30}
@@ -68,6 +78,18 @@ export default function App() {
               onPress={deletePlant}
             />
 
+          </View>
+        ))}         */}
+        {plantLib.map(plant => (
+          <View key={plant.plant_name}>
+            <Text>{plant.plant_name}</Text>
+            <Icon
+              name="plus-circle"
+              size={30}
+              color="blue"
+              style={{ marginLeft: 'auto' }}
+              onPress={() => addPlantToCollection(plant._id)}
+            />
           </View>
         ))}
       </View>

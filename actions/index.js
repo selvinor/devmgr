@@ -55,7 +55,7 @@ export const fetchPlants = () => (dispatch, getState)  => {
 // Async actions
 
 
-export const addPlant = () => dispatch => {
+export const addPlantToPlantLib = () => dispatch => {
   fetch(`${REACT_APP_BASE_URL}/api/plants`)
   .then(res => {
       if (!res.ok) {

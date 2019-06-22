@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 
-export default function PlantList(props) {
+export default function plantLib(props) {
   console.log('props: ', props);
 	return (
 		<View style={styles.listContainer}>
 			<View>
-				{/* {props.checked && <View style={styles.verticalLine} />} */}
+				{props.checked && <View style={styles.verticalLine} />}
 				<Text style={styles.listItem}>{props.text}</Text>
 			</View>
 			<Icon
@@ -15,7 +15,7 @@ export default function PlantList(props) {
 				size={30}
 				color="red"
 				style={{ marginLeft: 'auto' }}
-				onPress={props.addPlant}
+				onPress={props.addPlantToPlantLib}
 			/>
 		</View>
 	);
