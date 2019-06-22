@@ -1,38 +1,44 @@
-import React from 'react';
-import { FlatList, Button, Text, View, StyleSheet } from 'react-native';
-import {  List, ListItem } from "react-native-elements";
+import React, { useState, useEffect }  from 'react';
+import { Text, View, ScrollView, StyleSheet } from 'react-native';
 
-export default function plantLib () {
+export default function PlantCollection () {
+  const [activePlants, setPlantsActive] = useState([]);
+  function ListCollection() {
+    let counter = 0;
+    return (
+      <View>
+        { activePlants.map(plant => (
+          <View key={counter++}>
+            <Text>{plant.plant_name}</Text>
+            <Icon2
+              name="trash-2"
+              size={30}
+              color="red"
+              style={{ marginLeft: 'auto' }}
+              onPress={deletePlant}
+            />
+          </View>
+        ))}         
+      </View>
+    );
+  }
+  deletePlant = id => {
+    console.log('delete pressed for item: ', id);
+    setPlantsActive(
+      activePlants.filter(plant => {
+        if (plant.key !== id) return true;
+      })
+    );
+  };
+	return (
+		<View style={styles.container}>
+			<Text style={styles.header}>My Collection</Text>
+      <ScrollView style={{ width: '100%' }}>
+          <ListCollection />
+      </ScrollView>
 
-  return (
-    <View>
-      <List>
-      <FlatList
-      data={this.props.plants}
-      renderItem={({ item }) => (
-        <ListItem
-          title={item.customerName}
-          subtitle={item.email}
-          phone={item.phone}
-          description={item.description}
-          message={item.message}
-          price={item.price} 
-          />
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-      </List>
-      <View style={{flexDirection: 'row'}}>
-        <View style={{flex:1 , marginRight:10}} >
-          <Button title="New Plant" onPress={() => navigate('PlantForm')}></Button>
-        </View>
-        <View style={{flex:1}} >
-          <Button title="Home" onPress={() => navigate('Home')}></Button>
-        </View>
-      </View>        
-    </View>
-    
-  );
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({  

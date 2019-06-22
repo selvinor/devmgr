@@ -28,6 +28,14 @@ export default function App() {
     }
   };
     useEffect(() => {
+      deletePlant = id => {
+        console.log('delete pressed for item: ', id);
+        setPlantsActive(
+          activePlants.filter(plant => {
+            if (plant.key !== id) return true;
+          })
+        );
+      };
       addPlantToCollection = id => {
         //add plant to state
 
@@ -52,34 +60,28 @@ export default function App() {
         } 
         setCurrentKey(plantToAdd.key);    
       };
-    });
 
-  deletePlant = id => {
-    console.log('delete pressed for item: ', id);
-    // setPlantsActive(
-    //   activePlants.filter(plant => {
-    //     if (plant.key !== id) return true;
-    //   })
-    // );
-  };
-  
+
+});
+
+
   function ListPlants() {
   
     return (
       <View>
-        {/* {activePlants.map(plant => (
-          <View key={Date.now()}>
+        {activePlants.map((plant, index) => (
+          <View key={index}>
             <Text>{plant.plant_name}</Text>
             <Icon2
               name="trash-2"
               size={30}
               color="red"
               style={{ marginLeft: 'auto' }}
-              onPress={deletePlant}
+              onPress={() => deletePlant(plant.key)}
             />
 
           </View>
-        ))}         */}
+        ))}        
         {plantLib.map(plant => (
           <View key={plant.plant_name}>
             <Text>{plant.plant_name}</Text>
