@@ -1,69 +1,73 @@
 import React, { useState, useEffect }  from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
-
-export default function PlantCollection () {
+import Icon2 from 'react-native-vector-icons/Feather';
+ 
+export default function ListPlants() {
   const [activePlants, setPlantsActive] = useState([]);
-  function ListCollection() {
-    let counter = 0;
-    return (
-      <View>
-        { activePlants.map(plant => (
-          <View key={counter++}>
-            <Text>{plant.plant_name}</Text>
-            <Icon2
-              name="trash-2"
-              size={30}
-              color="red"
-              style={{ marginLeft: 'auto' }}
-              onPress={deletePlant}
-            />
-          </View>
-        ))}         
-      </View>
-    );
-  }
-  deletePlant = id => {
-    console.log('delete pressed for item: ', id);
-    setPlantsActive(
-      activePlants.filter(plant => {
-        if (plant.key !== id) return true;
-      })
-    );
-  };
-	return (
-		<View style={styles.container}>
-			<Text style={styles.header}>My Collection</Text>
-      <ScrollView style={{ width: '100%' }}>
-          <ListCollection />
-      </ScrollView>
+  useEffect(() => {
+    console.log('I will run after each render');
+    deletePlant = id => {
+      setPlantsActive(
+        activePlants.filter(plant => {
+          if (plant.key !== id) return true;
+        })
+      );
+    };
+  });
 
-		</View>
-	);
+  return (
+    <View>
+      <Text style={styles.header}>My Plants</Text>
+      <ScrollView style={{ width: '100%' }}>
+      {activePlants.map((plant, index) => (
+        <View key={index} style={styles.textInputContainer}>
+          <Text
+            style={{ margin: 'auto' }}
+          >{plant.plant_name}</Text>
+          <Icon2
+            name="trash-2"
+            size={30}
+            color="red"
+            style={{ marginLeft: 'auto' }}
+            onPress={() => deletePlant(plant.key)}
+          />
+        </View>
+      ))}
+      </ScrollView>
+    </View>
+  );
 }
 
-const styles = StyleSheet.create({  
-  button: {
-    width: 10,
-  flex: 1,
-  alignItems: 'center',
-  justifyContent: 'center',
-},
 
-  title: {
-    backgroundColor: '#fff',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#d1ea09',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#F5FCFF'
   },
-  text: {
-    textAlign: 'center',
-    fontSize: 30,
-    padding: 40,
+  header: {
+    marginTop: '15%',
+    fontSize: 20,
+    color: 'red',
+    paddingBottom: 10
+  },
+  textInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    borderColor: 'black',
+    borderBottomWidth: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10
+  },
+  textInput: {
+    flex: 1,
+    height: 20,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
+    paddingLeft: 10,
+    minHeight: '3%'
   }
 });
