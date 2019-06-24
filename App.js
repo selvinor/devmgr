@@ -12,6 +12,7 @@ import {
 // import Icon2 from 'react-native-vector-icons/Feather';
 // import ListPlants from './components/plant-list';
 import Plantlib from './components/plantlib';
+import HomeScreen from './screens/HomeScreen';
 
 // const plantLibrary = require('./assets/plant-library/plants');
 
@@ -105,7 +106,7 @@ export default function App() {
   // }
   return (
     <View style={styles.container}>
-        <Plantlib />      
+        <HomeScreen />   
     </View>
   );
 }
