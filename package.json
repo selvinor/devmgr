@@ -28,6 +28,7 @@
     "react-navigation": "^3.11.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",
+    "use-global-hook": "^0.1.7",
     "watchman": "^1.0.0"
   },
   "devDependencies": {

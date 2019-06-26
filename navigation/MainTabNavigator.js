@@ -41,6 +41,19 @@ StatusStack.navigationOptions = {
     />
   ),
 };
+const StatusStack = createStackNavigator({
+  Links: LinksScreen,
+});
+
+StatusStack.navigationOptions = {
+  tabBarLabel: 'Greenhouse Status',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+    />
+  ),
+};
 
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen,

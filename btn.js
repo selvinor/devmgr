@@ -24,7 +24,7 @@ class Btn extends Component {
 
     attrs() {
         return {
-            children : this.props.name,
+            plants : this.props.name,
             type     : 'button',
             role     : 'button',
             onClick  : this.handler.bind(this),

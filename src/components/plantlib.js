@@ -1,38 +1,27 @@
 import React, { useState, useEffect }  from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import useGlobal from "../store";
 
-const plantLibrary = require('../assets/plant-library/plants.json');
+const plantLibrary = require('../../assets/plant-library/plants.json');
 
 export default function Plantlib() {
-  const [currentKey, setCurrentKey] = useState(0);
-  const [plantLib, setplantLib] = useState(plantLibrary);
-  const [activePlants, setPlantsActive] = useState([]);
-  
+  const [globalState, globalActions] = useGlobal();
+ 
   useEffect(() => {
     console.log('I will run after each render');
     addPlantToCollection = id => {
 
-      const plantToAdd = plantLib.filter(plant => plant._id == id)[0]; 
-      if (activePlants.length > 0) {
-        const lastKey = activePlants[activePlants.length - 1].key;
+      const plantToAdd = globalState.plantLib.filter(plant => plant._id == id)[0]; 
+      if (globalState.activePlants.length > 0) {
+        const lastKey = globalState.activePlants[globalState.activePlants.length - 1].key; 
         plantToAdd.key = lastKey + 1;
       } else {
-        plantToAdd.key = currentKey + 1;
+        plantToAdd.key = 1;
       }
-      if (plantToAdd.count) {
-        plantToAdd.count++;
-      } else {
-        plantToAdd.count = 1;
-      }
-      
       //console.log('plantToAdd: ', plantToAdd);  
-      if (activePlants.length > 0) {
-        setPlantsActive([...activePlants, plantToAdd]);
-      } else {
-        setPlantsActive([plantToAdd]);
-      }
-      setCurrentKey(plantToAdd.key);
+      globalActions.setPlantsActive(plantToAdd);
+
     };
 
   });
@@ -41,7 +30,7 @@ export default function Plantlib() {
     <View style={styles.container}>
       <Text style={styles.header}>Select your plant</Text>
       <ScrollView style={{ width: '100%' }}>
-        {plantLib.map(plant => (
+        {globalState.plantLib.map(plant => (
           <View key={plant.plant_name} style={styles.textInputContainer}>
             <Text>{plant.plant_name}</Text>
             <Text>{(plant.count > 0) ? ' (' + plant.count + ')':' '}</Text>

@@ -1,14 +1,16 @@
 import React, { useState, useEffect }  from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import Icon2 from 'react-native-vector-icons/Feather';
- 
+import useGlobal from "../store";
+
 export default function ListPlants() {
-  const [activePlants, setPlantsActive] = useState([]);
+  const [globalState, globalActions] = useGlobal();
+
   useEffect(() => {
     console.log('I will run after each render');
     deletePlant = id => {
-      setPlantsActive(
-        activePlants.filter(plant => {
+      globalActions.setPlantsActive(
+        globalState.activePlants.filter(plant => {
           if (plant.key !== id) return true;
         })
       );
@@ -16,10 +18,10 @@ export default function ListPlants() {
   });
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.header}>My Plants</Text>
       <ScrollView style={{ width: '100%' }}>
-      {activePlants.map((plant, index) => (
+      {globalState.activePlants.map((plant, index) => (
         <View key={index} style={styles.textInputContainer}>
           <Text
             style={{ margin: 'auto' }}

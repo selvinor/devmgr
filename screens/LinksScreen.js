@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
-import  plantLib  from '../components/plant-list';
+import  plantLib  from '../src/components/plant-list';
 
 export default function LinksScreen() {
   return (
