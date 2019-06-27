@@ -5,7 +5,7 @@ import * as actions from "../actions";
 const plantLibrary = require('../../assets/plant-library/plants.json');
 
 const initialState = {
-  counter: 0,
+  counter: 1,
   plantLib: plantLibrary,
   activePlants:[],
   plantDetail:{}

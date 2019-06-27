@@ -15,8 +15,8 @@ import {
 import Plantlib from './src/components/plantlib';
 import ListPlants from './src/components/plant-list';
 import Dashboard from './screens/Dashboard';
-import { renderTime } from './src/utils';
-import Counter from './src/components/Counter';
+// import { renderTime } from './src/utils';
+// import Counter from './src/components/Counter';
 
 export default function App() {
   // const [children, setChilds] = useState([]);

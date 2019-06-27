@@ -9,22 +9,18 @@ export default function Plantlib() {
   const [globalState, globalActions] = useGlobal();
  
   useEffect(() => {
-    console.log('I will run after each render');
-    addPlantToCollection = id => {
-
-      const plantToAdd = globalState.plantLib.filter(plant => plant._id == id)[0]; 
-      if (globalState.activePlants.length > 0) {
-        const lastKey = globalState.activePlants[globalState.activePlants.length - 1].key; 
-        plantToAdd.key = lastKey + 1;
-      } else {
-        plantToAdd.key = 1;
-      }
-      //console.log('plantToAdd: ', plantToAdd);  
-      globalActions.setPlantsActive(plantToAdd);
-
-    };
-
+    console.log('plantlib: I will run after each render');
   });
+
+    addPlantToActive = id => {
+      const plantToAdd = Object.assign({}, globalState.plantLib.filter(plant => plant._id == id)[0]);  
+
+      plantToAdd.key = globalState.counter;
+      globalActions.setPlantsActive(plantToAdd);
+      globalActions.addToCounter(1);
+     };
+
+
 
   return (
     <View style={styles.container}>
@@ -32,14 +28,14 @@ export default function Plantlib() {
       <ScrollView style={{ width: '100%' }}>
         {globalState.plantLib.map(plant => (
           <View key={plant.plant_name} style={styles.textInputContainer}>
-            <Text>{plant.plant_name}</Text>
+            <Text>{plant.plant_name}</Text>  
             <Text>{(plant.count > 0) ? ' (' + plant.count + ')':' '}</Text>
             <Icon
               name="plus-circle"
               size={30}
               color="blue"
               style={{ marginLeft: 'auto' }}
-              onPress={() => addPlantToCollection(plant._id)}
+              onPress={() => addPlantToActive(plant._id)}
             />
           </View>
         ))}

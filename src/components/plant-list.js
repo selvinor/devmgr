@@ -7,15 +7,12 @@ export default function ListPlants() {
   const [globalState, globalActions] = useGlobal();
 
   useEffect(() => {
-    console.log('I will run after each render');
-    deletePlant = id => {
-      globalActions.setPlantsActive(
-        globalState.activePlants.filter(plant => {
-          if (plant.key !== id) return true;
-        })
-      );
-    };
   });
+    console.log('I will run after each render');
+    deletePlantFromActive = plantToDelete => {
+      globalActions.removeActivePlant(plantToDelete);
+    };
+
 
   return (
     <View style={styles.container}>
@@ -31,7 +28,7 @@ export default function ListPlants() {
             size={30}
             color="red"
             style={{ marginLeft: 'auto' }}
-            onPress={() => deletePlant(plant.key)}
+            onPress={() => deletePlantFromActive(plant.key)}
           />
         </View>
       ))}
